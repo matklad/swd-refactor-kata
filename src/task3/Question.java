@@ -1,13 +1,32 @@
 package task3;
 
-public class Question {
-  public final String q, answ1, answ2, answ3, answ4;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-  public Question(String q, String answ4, String answ3, String answ2, String answ1) {
+public class Question {
+  private final String q;
+  private final int correct;
+  private final String[] answers;
+
+  // package private, so not a public api
+  Question(String q, int correct, String... answers) {
+    assert (0 <= correct && correct < answers.length);
     this.q = q;
-    this.answ4 = answ4;
-    this.answ3 = answ3;
-    this.answ2 = answ2;
-    this.answ1 = answ1;
+    this.answers = answers;
+    this.correct = correct;
+  }
+
+  @Override
+  public String toString() {
+    return q;
+  }
+
+  public boolean checkAnswer(String answer) {
+    return answers[correct].equals(answer);
+  }
+
+  public List<String> answers() {
+    return Collections.unmodifiableList(Arrays.asList(answers));
   }
 }
